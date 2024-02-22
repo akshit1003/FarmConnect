@@ -28,21 +28,24 @@ db.connect(err => {
 });
 
 app.use(express.json());
+// app.use(bodyParser.urlencoded({extended: true}));
 
 app.post('/cart', (req, res) => {
     const { product_name, price, quantity } = req.body;
     const sql = 'INSERT INTO cart_items (product_name, price, quantity) VALUES (?, ?, ?)';
     db.query(sql, [product_name, price, quantity], (err, result) => {
         if (err) {
-            res.status(500).json({error: err.message});
+            console.error('Error adding item to cart:', err);
+            res.status(500).json({ error: err.message });
         } else {
             res.status(201).send('Item added to cart');
         }
     });
 });
-app.get("/", (req, res) => {
-    res.send("Hello World");
-})
+
+// app.get("/", (req, res) => {
+//     res.send("Hello World");
+// })
 
 // // app.post("/", (req, res) => {
 // //     res.send("<h1>Hello</h1>");
@@ -52,9 +55,10 @@ app.get('/cart', (req, res) => {
     const sql = 'SELECT * FROM cart_items';
     db.query(sql, (err, result) => {
         if (err) {
-            res.status(500).json({ error: err.message});
+            console.error('Error fetching cart items:', err);
+            res.status(500).json({ error: err.message });
         } else {
-            res.status(200).json(results);
+            res.status(200).json(result);
         }
     });
 });

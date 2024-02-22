@@ -1,18 +1,25 @@
 $(document).ready(function() {
     $('#addItemForm').submit(function(event) {
         event.preventDefault();
-        const productName = $('#productName').val();
+        const product_name = $('#product_name').val();
         const price = $('#price').val();
         const quantity = $('#quantity').val();
+
+        const newItem = {
+            product_name: product_name,
+            price: parseFloat(price),
+            quantity: parseInt(quantity)
+        };
 
         $.ajax({
             type: 'POST',
             url: '/cart',
             contentType: 'application/json',
-            data: JSON.stringify({ productName, price, quantity }),
+            data: JSON.stringify(newItem),
             success: function(response) {
                 alert('Item added to cart successfully');
                 $('#addItemForm')[0].reset();
+                fetchCartItems(); 
             },
             error: function(err) {
                 console.error('Error adding item to cart:', err);

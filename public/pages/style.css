@@ -387,8 +387,11 @@ ul{
 
 /* FOR MOBILE */
 @media (max-width:924px){
+    body {
+        overflow: x;
+    }
     nav{
-        width: 100%;
+        /* width: 100%; */
         font-size: 50px;
     }
     
@@ -410,6 +413,10 @@ ul{
         display: none;
     }
 
+    #popular_section{
+        height: 50vh;
+    }
+
     #search_bar {
         /* visibility: hidden; */
         padding: 3px;
@@ -423,7 +430,7 @@ ul{
     }
 
     #banner-section{
-        display: flex;
+        display: none;
         align-items: center;
         justify-content: center;
         padding: 40px;
@@ -448,5 +455,7 @@ ul{
 
     footer {
         flex-wrap: nowrap;
+        position: relative;
+        bottom: -8rem
     }
 }
